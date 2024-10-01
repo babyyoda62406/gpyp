@@ -1,0 +1,14 @@
+services:
+  db-gpyp:
+    container_name: db-gpyp
+    image: postgres:16.2
+    restart: unless-stopped
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_USER: db-gpyp
+      POSTGRES_PASSWORD: db-gpyp
+      POSTGRES_DB: db-gpyp
+
