@@ -24,12 +24,13 @@ export class DatabaseConnectionExceptionFilter implements ExceptionFilter {
       });
     } else {
       if(exception instanceof HttpException) {
+        const responseBody = exception.getResponse() as object || {};
         response.status(exception.getStatus()).json({
           statusCode: exception.getStatus(),
           timestamp: new Date().toISOString(),
           path: request.url,
           message: exception.message,
-          response: exception.getResponse(),
+          ...responseBody,
         });
       } else {
         response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

@@ -25,11 +25,14 @@ export class AuthService {
         if (user.status === UserStatus.INACTIVE) throw new HttpException('Cuenta Inactiva', HttpStatus.FORBIDDEN);
         
         return {
-            token: this.jwtService.sign({ id: user.id })
+            token: this.jwtService.sign({ email: user.email  })
         };
     }
 
     async register(regsterDto: RegisterDto){
-        return this.usersService.create({...regsterDto, details: null , status: UserStatus.ACTIVE});
+        const tempUser  = await this.usersService.create({...regsterDto, details: null , status: UserStatus.ACTIVE});
+        return {
+            token: this.jwtService.sign({ email: tempUser.email  })
+        };
     }
 }
