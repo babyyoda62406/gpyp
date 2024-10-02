@@ -8,6 +8,8 @@ interface Envs {
   DB_NAME: string;
   DB_USER: string;
   DB_PASS: string;
+  JWTSECRET: string;
+  JWTEXPIREIN: string;
 }
 
 const envSchema = joi
@@ -18,6 +20,8 @@ const envSchema = joi
     DB_NAME: joi.string().required(),
     DB_USER: joi.string().required(),
     DB_PASS: joi.string().required(),
+    JWTSECRET: joi.string().required(),
+    JWTEXPIREIN: joi.string().required(),
   })
   .unknown();
 
@@ -36,4 +40,6 @@ export const envs: Envs = {
   DB_NAME: value.DB_NAME,
   DB_USER: value.DB_USER,
   DB_PASS: value.DB_PASS,
+  JWTSECRET: value.JWTSECRET,
+  JWTEXPIREIN: value.JWTEXPIREIN,
 };

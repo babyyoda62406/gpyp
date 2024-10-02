@@ -24,7 +24,6 @@ export class DatabaseConnectionExceptionFilter implements ExceptionFilter {
       });
     } else {
       if(exception instanceof HttpException) {
-        console.log(exception)
         response.status(exception.getStatus()).json({
           statusCode: exception.getStatus(),
           timestamp: new Date().toISOString(),

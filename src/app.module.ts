@@ -8,6 +8,7 @@ import { User } from './users/entities/user.entity';
 
 import { QueryFailedFilter } from './common/exceptions/query-failed-exception.filter';
 import { DatabaseConnectionExceptionFilter } from './common/exceptions/database-connection-exception.filter.ts';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DatabaseConnectionExceptionFilter } from './common/exceptions/database-
       synchronize: true,
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [
