@@ -1,8 +1,10 @@
-import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { Auth } from './decorators/auth.decorator';
+import { ItPrivileges } from './interfaces/ItPrivileges';
+
 
 @Controller('auth')
 export class AuthController {
@@ -24,8 +26,9 @@ export class AuthController {
 
 
     @Get('test')
-    @UseGuards(AuthGuard())
+    @Auth(ItPrivileges.EDITOR)
     test() {
+        // console.log(a)
         return 'test';
     }
 

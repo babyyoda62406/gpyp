@@ -1,3 +1,4 @@
+import { ItPrivileges  as UserPrivileges } from 'src/auth/interfaces/ItPrivileges';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum UserStatus{
@@ -6,23 +7,39 @@ export enum UserStatus{
     DELETED = 'DELETED'
 }
 
+
+
+
+
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column('text', {
+        unique: false,
+    })
     name: string;
 
-    @Column({unique: true})
+    @Column('text', {unique: true})
     email: string;
 
-    @Column()    
+    @Column('text', {
+        unique: false,
+        nullable: false,
+    })    
     password: string;
 
-    @Column({nullable: true})
+    @Column('text', {nullable: true})
     details: string;
 
-    @Column({default: UserStatus.ACTIVE})
+    @Column('enum', { enum: UserStatus, default: UserStatus.ACTIVE })
     status: UserStatus;
+
+    @Column('enum', {
+        enum: UserPrivileges,
+        array: true,
+        default: [UserPrivileges.OBSERVER]
+    })
+    privileges: UserPrivileges[];
 }

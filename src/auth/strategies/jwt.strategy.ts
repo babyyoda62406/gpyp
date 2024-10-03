@@ -20,7 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: ItJwtPayload) {
-    console.log(payload);
     
     const user = await this.userService.findByEmail(payload.email);
     if (!user || user.status === UserStatus.DELETED) throw new HttpException({
@@ -32,7 +31,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         message: 'Cuenta Inactiva', 
         details: 'User Inactive'
     } , HttpStatus.FORBIDDEN )
-    console.log(user);
-    return { email: payload.email };
+    
+    return user
   }
 }

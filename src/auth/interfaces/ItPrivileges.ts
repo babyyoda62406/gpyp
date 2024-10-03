@@ -1,0 +1,6 @@
+export enum ItPrivileges {
+    ALL_PRIVILEGES = "ALL_PRIVILEGES",
+    EDITOR = "EDITOR",
+    COMERCIAL = "COMERCIAL",
+    OBSERVER = "OBSERVER"
+}

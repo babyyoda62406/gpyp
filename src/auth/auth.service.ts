@@ -18,11 +18,11 @@ export class AuthService {
     async login(loginDto: LoginDto) {
         const user: User = await this.usersService.findByEmail(loginDto.email);
 
-        if (!user || user.status == UserStatus.DELETED) throw new HttpException('Verifique sus credenciales', HttpStatus.UNAUTHORIZED);
+        if (!user || user.status == UserStatus.DELETED) throw new HttpException({message:'Verifique sus credenciales'}, HttpStatus.UNAUTHORIZED);
 
-        if (!bycrypt.compareSync(loginDto.password, user.password)) throw new HttpException('Verifique sus credenciales', HttpStatus.UNAUTHORIZED);
+        if (!bycrypt.compareSync(loginDto.password, user.password)) throw new HttpException({message:'Verifique sus credenciales'}, HttpStatus.UNAUTHORIZED);
 
-        if (user.status === UserStatus.INACTIVE) throw new HttpException('Cuenta Inactiva', HttpStatus.FORBIDDEN);
+        if (user.status === UserStatus.INACTIVE) throw new HttpException({message:'Cuenta Inactiva'}, HttpStatus.FORBIDDEN);
         
         return {
             token: this.jwtService.sign({ email: user.email  })

@@ -32,12 +32,12 @@ export class UsersService {
         id: id
       }
     });
-    if(!user) throw new HttpException(`No existe el usuario con id: ${id}`, HttpStatus.NOT_FOUND);
+    if(!user) throw new HttpException({message:`No existe el usuario con id: ${id}`}, HttpStatus.NOT_FOUND);
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult & User> {
-    if(!Object.keys(updateUserDto).length) throw new HttpException('No hay datos para actualizar', HttpStatus.BAD_REQUEST);
+    if(!Object.keys(updateUserDto).length) throw new HttpException({message:'No hay datos para actualizar'}, HttpStatus.BAD_REQUEST);
     if(updateUserDto.password) updateUserDto.password = bycrypt.hashSync(updateUserDto.password, bycrypt.genSaltSync(10));
     const tempUpdate = await  this.DTO.update(id, updateUserDto);
     const tempUser = await this.findOne(id);
