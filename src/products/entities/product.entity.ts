@@ -21,6 +21,11 @@ export enum ProductCategory {
     Others = 'Others'
 }
 
+export enum ProductStatus {
+    ACTIVE = 'ACTIVE',
+    DELETED = 'DELETED'
+}
+
 @Entity()
 export class Product {
 
@@ -53,6 +58,12 @@ export class Product {
         nullable: true
     })
     url: string;
+
+    @Column('enum', {
+        enum: ProductStatus,
+        default: ProductStatus.ACTIVE
+    })
+    status: ProductStatus;
 
     @ManyToOne(() => User, (user) => user.products)
     user: User;

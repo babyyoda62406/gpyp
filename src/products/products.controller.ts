@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -7,6 +7,7 @@ import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { ItPrivileges } from 'src/auth/interfaces/ItPrivileges';
 import { FindAllProductDto } from './dto/find-all-product.dto';
 import { User } from 'src/users/entities/user.entity';
+import { tpDepth } from 'src/common/types/tpDepth';
 
 @Controller('products')
 export class ProductsController {
@@ -37,7 +38,10 @@ export class ProductsController {
 
   @Delete(':id')
   @Auth(ItPrivileges.ALL_PRIVILEGES  , ItPrivileges.COMERCIAL)
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.remove(id);
+  remove(@Param('id', ParseIntPipe) id: number, @GetUser() user: User , @Query('depth') depth: tpDepth) {
+    if(depth && !['soft', 'hard'].includes(depth)) {
+      throw new HttpException({message:'El parámetro depth debe ser soft o hard'}, HttpStatus.BAD_REQUEST);
+    }
+    return this.productsService.remove(id , user, depth);
   }
 }

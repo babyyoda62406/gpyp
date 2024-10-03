@@ -33,7 +33,7 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number , @Query('depth') depth: tpDepth) {
     if(depth && !['soft', 'hard'].includes(depth)) {
-      throw new HttpException('El parámetro depth debe ser soft o hard', HttpStatus.BAD_REQUEST);
+      throw new HttpException({message:'El parámetro depth debe ser soft o hard'}, HttpStatus.BAD_REQUEST);
     }
     return this.usersService.remove(id, depth);
   }
