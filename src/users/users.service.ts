@@ -21,6 +21,8 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     createUserDto.password = bycrypt.hashSync(createUserDto.password, bycrypt.genSaltSync(10));
+    const howBefore = await this.DAO.count()
+    if(!howBefore) return  await this.DAO.save({...createUserDto, privileges: [ItPrivileges.ALL_PRIVILEGES]});
     return await this.DAO.save(createUserDto);
   }
 
