@@ -8,7 +8,9 @@ import { ItPrivileges } from 'src/auth/interfaces/ItPrivileges';
 import { FindAllPublicationDto } from './dto/find-all-publication.dto';
 import { User } from 'src/users/entities/user.entity';
 import { tpDepth } from 'src/common/types/tpDepth';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Publications')
 @Controller('publications')
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}

@@ -10,7 +10,9 @@ import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { FindAllUserDto } from './dto/find-all-user.dto';
 import { AddPrivilegesDto } from './dto/add-privileges.dto';
 import { RemovePrivilegesDto } from './dto/remove-privilges.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }

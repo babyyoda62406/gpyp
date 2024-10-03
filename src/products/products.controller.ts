@@ -8,7 +8,10 @@ import { ItPrivileges } from 'src/auth/interfaces/ItPrivileges';
 import { FindAllProductDto } from './dto/find-all-product.dto';
 import { User } from 'src/users/entities/user.entity';
 import { tpDepth } from 'src/common/types/tpDepth';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
