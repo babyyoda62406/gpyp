@@ -1,5 +1,6 @@
 import { ItPrivileges  as UserPrivileges } from 'src/auth/interfaces/ItPrivileges';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from 'src/products/entities/product.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 export enum UserStatus{
     ACTIVE = 'ACTIVE',
@@ -27,6 +28,7 @@ export class User {
     @Column('text', {
         unique: false,
         nullable: false,
+        select: false
     })    
     password: string;
 
@@ -42,4 +44,7 @@ export class User {
         default: [UserPrivileges.OBSERVER]
     })
     privileges: UserPrivileges[];
+
+    @OneToMany(() => Product, (product) => product.user)
+    products: Product[];
 }

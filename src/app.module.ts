@@ -9,6 +9,8 @@ import { User } from './users/entities/user.entity';
 import { QueryFailedFilter } from './common/exceptions/query-failed-exception.filter';
 import { DatabaseConnectionExceptionFilter } from './common/exceptions/database-connection-exception.filter.ts';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { Product } from './products/entities/product.entity';
 
 @Module({
   imports: [
@@ -19,11 +21,12 @@ import { AuthModule } from './auth/auth.module';
       username: envs.DB_USER,
       password: envs.DB_PASS,
       database: envs.DB_NAME,
-      entities: [User],
+      entities: [User, Product],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
+    ProductsModule,
   ],
   controllers: [],
   providers: [

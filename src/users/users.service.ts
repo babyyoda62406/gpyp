@@ -11,23 +11,23 @@ import * as bycrypt from 'bcrypt'
 export class UsersService {
 
   constructor(
-    @InjectRepository(User) private readonly DTO: Repository<User> ,
+    @InjectRepository(User) private readonly DAO: Repository<User> ,
   ) {}
 
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     createUserDto.password = bycrypt.hashSync(createUserDto.password, bycrypt.genSaltSync(10));
-    return await this.DTO.save(createUserDto);
+    return await this.DAO.save(createUserDto);
   }
 
   async findAll(): Promise<User[]> {
-    const users: User[] = await this.DTO.find();
+    const users: User[] = await this.DAO.find();
     if(!users.length) throw new HttpException('', HttpStatus.NO_CONTENT);
     return users;
   }
 
   async findOne(id: number): Promise<User> {
-    const user: User = await this.DTO.findOne({
+    const user: User = await this.DAO.findOne({
       where:{
         id: id
       }
@@ -39,16 +39,17 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult & User> {
     if(!Object.keys(updateUserDto).length) throw new HttpException({message:'No hay datos para actualizar'}, HttpStatus.BAD_REQUEST);
     if(updateUserDto.password) updateUserDto.password = bycrypt.hashSync(updateUserDto.password, bycrypt.genSaltSync(10));
-    const tempUpdate = await  this.DTO.update(id, updateUserDto);
+    const tempUpdate = await  this.DAO.update(id, updateUserDto);
     const tempUser = await this.findOne(id);
     return {...tempUser, ...tempUpdate};
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user: User = await this.DTO.findOne({
+    const user: User = await this.DAO.findOne({
       where:{
         email: email
-      }
+      }, 
+      select: ['id', 'name', 'email', 'password', 'privileges', 'status']
     });
     return user;
   }
@@ -58,14 +59,14 @@ export class UsersService {
       switch(depth) {
         case 'soft':
           tempUser.status = UserStatus.DELETED;
-          await this.DTO.save(tempUser);
+          await this.DAO.save(tempUser);
           break;
         case 'hard':
-          await this.DTO.delete(id);
+          await this.DAO.delete(id);
           break;
         default:
           tempUser.status = UserStatus.DELETED;
-          await this.DTO.save(tempUser);
+          await this.DAO.save(tempUser);
           break;
       }
 
