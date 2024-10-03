@@ -11,6 +11,8 @@ import { DatabaseConnectionExceptionFilter } from './common/exceptions/database-
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { Product } from './products/entities/product.entity';
+import { PublicationsModule } from './publications/publications.module';
+import { Publication } from './publications/entities/publication.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { Product } from './products/entities/product.entity';
       username: envs.DB_USER,
       password: envs.DB_PASS,
       database: envs.DB_NAME,
-      entities: [User, Product],
+      entities: [User, Product, Publication],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
     ProductsModule,
+    PublicationsModule,
   ],
   controllers: [],
   providers: [

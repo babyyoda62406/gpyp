@@ -1,5 +1,6 @@
 import { ItPrivileges  as UserPrivileges } from 'src/auth/interfaces/ItPrivileges';
 import { Product } from 'src/products/entities/product.entity';
+import { Publication } from 'src/publications/entities/publication.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 export enum UserStatus{
@@ -47,4 +48,7 @@ export class User {
 
     @OneToMany(() => Product, (product) => product.user)
     products: Product[];
+
+    @OneToMany(()=> Publication , (publication) => publication.user)
+    publications: Publication[];
 }

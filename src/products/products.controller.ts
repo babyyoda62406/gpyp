@@ -20,6 +20,7 @@ export class ProductsController {
   }
 
   @Get()
+  @Auth()
   findAll(@Query() findAllProductDto: FindAllProductDto) {
     return this.productsService.findAll(findAllProductDto);
   }

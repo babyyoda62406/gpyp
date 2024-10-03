@@ -32,17 +32,19 @@ export class ProductsService {
 
   async findAll(findAllProductDto: FindAllProductDto): Promise<ItFindAllResponse<Product>> {
 
-    const { category, page, size } = findAllProductDto;
+    const { category, page, size , status} = findAllProductDto;
 
     const total = await this.DAO.count({
       where: {
-        ...(category ? { category: category } : {})
+        ...(category ? { category: category } : {}), 
+        ...(status ? { status: status } : {})
       }
     });
 
     const products: Product[] = await this.DAO.find({
       where: {
-        ...(category ? { category } : {})
+        ...(category ? { category } : {}), 
+        ...(status ? { status: status } : {})
       },
       order: {
         id: 'asc'
