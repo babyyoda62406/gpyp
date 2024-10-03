@@ -28,6 +28,8 @@ export class CreateUserDto {
     @IsString()
     password: string;
 
+    
+
     @ApiProperty({
         description: 'Url de la imagen del usuario',
         example: 'https://drive.google.com/file/d/profile-default.png'
