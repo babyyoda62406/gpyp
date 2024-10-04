@@ -226,6 +226,11 @@ export class ProductsController {
     }
   })
   @ApiResponse({
+    status: 204,
+    description: 'No Content',
+    example: ''
+  })
+  @ApiResponse({
     status: 404,
     description: 'Not Found',
     example: {

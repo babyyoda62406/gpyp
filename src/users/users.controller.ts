@@ -161,6 +161,11 @@ export class UsersController {
       }
     }
   })
+  @ApiResponse({
+    status: 204,
+    description: 'No Content',
+    example: ''
+  })
   @ApiQuery({
     name: 'status',
     required: false,
@@ -269,6 +274,7 @@ export class UsersController {
       }
     }
   })
+  
   @ApiParam({
     name: 'id',
     required: true,
