@@ -35,13 +35,16 @@ http://localhost:3000/api/v1/docs#/
 contacto +53 58831892 for more information
 
 # Info: 
-Todos los endpoints excepto login y register son protegidos por JWT , con diferentes privilegios de autiración.
+Claro, aquí tienes el texto reformulado de manera más profesional:
 
-El primero usuario en registrarse se le asigna el privilegio de "ALL_PRIVILEGES" y el resto de usuarios se asignan los privilegio de "OBSERVER" 
+---
 
-Para modificar los privilegios de un usuario se debe tener el privilegio de "ALL_PRIVILEGES" y estos se pueden modificar a travez de los endpoints  "add-privileges" o "remove-privileges"
+El primer usuario que se registre recibirá el privilegio de "ALL_PRIVILEGES", mientras que a los usuarios subsiguientes se les otorgará el privilegio de "OBSERVER".
 
-El resto de los endpoints y los diferentes niveles de control de acceso basado en privilegios se pueden inferir a travez de la documentación de la API.
+Para modificar los privilegios de un usuario, es necesario contar con el privilegio de "ALL_PRIVILEGES". Dichas modificaciones pueden realizarse a través de los endpoints "add-privileges" y "remove-privileges".
 
-Un saludo y gracias por su tiempo.
+Los demás endpoints y los distintos niveles de control de acceso basados en privilegios están detallados en la documentación de la API.
+
+Agradecemos su atención y quedamos a su disposición para cualquier consulta adicional.
+
 
